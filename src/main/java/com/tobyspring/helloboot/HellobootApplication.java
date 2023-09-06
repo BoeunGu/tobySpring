@@ -6,6 +6,7 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 
 import javax.servlet.ServletContext;
@@ -26,18 +27,26 @@ public class HellobootApplication {
             @Override
             public void onStartup(ServletContext servletContext) throws ServletException {
                 //서블릿 등록
-                servletContext.addServlet("hello",new HttpServlet(){
+                servletContext.addServlet("frontController",new HttpServlet(){
                     @Override
                     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-                        //request에서 쿼리파람 얻는 방법
-                        String name = req.getParameter("name");
+                        // 인증, 보안, 다국어 등 공통 기능을 Front Controller가 담당하도록 함.
+                        if(req.getRequestURI().equals("/hello")
+                                && req.getMethod().equals(HttpMethod.GET.name())){
 
+                        String name = req.getParameter("name");
                         resp.setStatus(HttpStatus.OK.value());
                         resp.setHeader(HttpHeaders.CONTENT_TYPE, "Text/plain");
                         resp.getWriter().println("Hello Servlet" + name);
+                        } else if (req.getRequestURI().equals("/user")) {
+                            //
+                        }
+                        else {
+                            resp.setStatus(HttpStatus.NOT_FOUND.value());
+                        }
 
                     }
-                }).addMapping("/hello");
+                }).addMapping("/*"); //FrontController 역할을 담당하도록 모든 요청을 처리하게 한다.
             }
         });
         webServer.start();
