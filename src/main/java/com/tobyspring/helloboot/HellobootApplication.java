@@ -1,6 +1,5 @@
 package com.tobyspring.helloboot;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
@@ -26,22 +25,26 @@ public class HellobootApplication {
         WebServer webServer = serverFactory.getWebServer(new ServletContextInitializer() {
             @Override
             public void onStartup(ServletContext servletContext) throws ServletException {
+
+                HelloController helloController = new HelloController();
+
                 //서블릿 등록
-                servletContext.addServlet("frontController",new HttpServlet(){
+                servletContext.addServlet("frontController", new HttpServlet() {
                     @Override
                     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                         // 인증, 보안, 다국어 등 공통 기능을 Front Controller가 담당하도록 함.
-                        if(req.getRequestURI().equals("/hello")
-                                && req.getMethod().equals(HttpMethod.GET.name())){
+                        if (req.getRequestURI().equals("/hello")
+                                && req.getMethod().equals(HttpMethod.GET.name())) {
 
-                        String name = req.getParameter("name");
-                        resp.setStatus(HttpStatus.OK.value());
-                        resp.setHeader(HttpHeaders.CONTENT_TYPE, "Text/plain");
-                        resp.getWriter().println("Hello Servlet" + name);
+                            String name = req.getParameter("name");
+                            String ret = helloController.hello(name);
+
+                            resp.setStatus(HttpStatus.OK.value());
+                            resp.setHeader(HttpHeaders.CONTENT_TYPE, "Text/plain");
+                            resp.getWriter().println(ret);
                         } else if (req.getRequestURI().equals("/user")) {
                             //
-                        }
-                        else {
+                        } else {
                             resp.setStatus(HttpStatus.NOT_FOUND.value());
                         }
 
