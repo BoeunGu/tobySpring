@@ -22,6 +22,7 @@ public class HellobootApplication {
 
         GenericApplicationContext applicationContext = new GenericApplicationContext();
         applicationContext.registerBean(HelloController.class); // bean 등록
+        applicationContext.registerBean(SimpleHelloService.class);
         applicationContext.refresh(); //컨테이너에 필요한 정보를 등록하고 refresh()를 이용해서 초기화 작업을 진행한다.
 
         //스프링 부트가 지원하는 'TomcatServletWebServerFactory'를 사용하면 톰캣 웹 서버(서블릿 컨테이너)를 실행하는 코드를 만들 수 있다.
