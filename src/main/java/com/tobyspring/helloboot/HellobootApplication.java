@@ -33,7 +33,7 @@ public class HellobootApplication {
             }
         };
         applicationContext.registerBean(HelloController.class); // bean 등록
-        applicationContext.registerBean(SimpleHelloService.class);
+        applicationContext.registerBean(SimpleHelloService.class); // bean 등록
         applicationContext.refresh(); //컨테이너에 필요한 정보를 등록하고 refresh()를 이용해서 초기화 작업을 진행한다.
 
 
