@@ -1,11 +1,13 @@
 package com.tobyspring.helloboot;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Objects;
 
+@Component //스프링 컨테이너에 들어가는 컴포넌트라고 명시
 @RequestMapping
 public class HelloController {
 

@@ -4,7 +4,7 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -12,6 +12,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 @Configuration // 해당 애노테이션이 붙은 클래스가 AnnotationConfigApplicationContext에 처음 등록되는 빈 이다.
+@ComponentScan // 해당 클래스가 있는 패키지 부터 하위 패키지 까지 @Component 애노테이션이 붙어있는 클래스들을 빈으로 등록시켜 줌.
 public class HellobootApplication {
 
     public static void main(String[] args) {
@@ -39,15 +40,4 @@ public class HellobootApplication {
 
 
     }
-
-    @Bean // 스프링 컨테이너에게 bean 등록에 사용될 factory method라고 알려주는 역할.
-    public HelloController helloController(HelloService helloService) {
-        return new HelloController(helloService);
-    }
-
-    @Bean
-    public HelloService helloService() {
-        return new SimpleHelloService();
-    }
-
 }
