@@ -27,7 +27,7 @@ public class HellobootApplication {
 
                 ServletWebServerFactory serverFactory = this.getBean(ServletWebServerFactory.class);
                 DispatcherServlet dispatcherServlet = this.getBean(DispatcherServlet.class);
-                dispatcherServlet.setApplicationContext(this); //
+                dispatcherServlet.setApplicationContext(this); // ApplicationContextAware을 상속하고 있기에, DispatcherServlet이 빈으로 등록 될 시점에 스프링 컨테이너도 함께 주입 됨.
                 WebServer webServer = serverFactory.getWebServer(new ServletContextInitializer() {
                     @Override
                     public void onStartup(ServletContext servletContext) throws ServletException {
