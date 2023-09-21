@@ -16,6 +16,7 @@ public class HelloApiTest {
         // http localhost:8080/hello?name=Spring
         TestRestTemplate rest = new TestRestTemplate();
 
+        // 응답 정보가 모여있는 객체
         ResponseEntity<String> res =
                 rest.getForEntity("http//localhost:8080/hello?name={name}", String.class, "Spring");
 
