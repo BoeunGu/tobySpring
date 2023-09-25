@@ -15,6 +15,7 @@ public class HelloDecorator implements HelloService {
 
     @Override
     public String sayHello(String name) {
+        // 실제 비즈니스 로직 전, 후로 다른 성격의 로직을 수행할때 사용 됨.
         return "*" + helloService.sayHello(name) + "*";
     }
 
