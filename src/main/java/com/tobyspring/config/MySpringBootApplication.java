@@ -1,6 +1,5 @@
-package com.tobyspring.helloboot;
+package com.tobyspring.config;
 
-import com.tobyspring.config.EnableMyAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
