@@ -1,7 +1,9 @@
 package com.tobyspring.helloboot;
 
+import com.tobyspring.config.Config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,5 +15,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE) // TYPE은 클래스, 인터페이서, 이넘에 해당 함.
 @Configuration // 해당 애노테이션이 붙은 클래스가 AnnotationConfigApplicationContext에 처음 등록되는 빈 이다.
 @ComponentScan // 해당 클래스가 있는 패키지 부터 하위 패키지 까지 @Component 애노테이션이 붙어있는 클래스들을 빈으로 등록시켜 줌.
-public @interface MySpringBootAnnotation {
+@Import(Config.class) // @Component가 붙은 클래스를 빈으로 등록할 수 있음.
+public @interface MySpringBootApplication {
 }
