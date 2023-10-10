@@ -1,2 +1,2 @@
-tobyspring.config.autoconfig.TomcatWebServerConfig
-tobyspring.config.autoconfig.DispatcherServletConfig
+com.tobyspring.config.autoConfig.TomcatWebServerConfig
+com.tobyspring.config.autoConfig.DispatcherServletConfig

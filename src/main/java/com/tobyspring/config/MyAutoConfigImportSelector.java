@@ -1,6 +1,5 @@
 package com.tobyspring.config;
 
-import com.tobyspring.config.autoConfig.MyAutoConfiguration;
 import org.springframework.boot.context.annotation.ImportCandidates;
 import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.core.type.AnnotationMetadata;
