@@ -18,7 +18,7 @@ public class ConfigurationTest {
 
         Bean1 bean1 = ac.getBean(Bean1.class);
         Bean2 bean2 = ac.getBean(Bean2.class);
-        Assertions.assertThat(bean1.common).isSameAs(bean2.common);
+        Assertions.assertThat(bean1.common).isSameAs(bean2.common);  // spring container의 싱글톤 빈 관리
 
     }
 
