@@ -21,7 +21,7 @@ public class JettyWebServerConfig {
     static class JettyCondition implements Condition {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            return false; // spring container에 bean을 등록할지 말지 결정
+            return true; // spring container에 bean을 등록할지 말지 결정
         }
     }
 }
