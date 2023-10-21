@@ -6,6 +6,11 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.*;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 public class ConditionalTest {
 
     @Test
@@ -31,6 +36,18 @@ public class ConditionalTest {
                 });
     }
 
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.TYPE)
+    @Conditional(FlaseCondition.class)
+    @interface FalseConditional {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.TYPE)
+    @Conditional(TrueCondition.class)
+    @interface TrueConditional {
+    }
+
     static class TrueCondition implements Condition {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
@@ -46,7 +63,7 @@ public class ConditionalTest {
     }
 
     @Configuration
-    @Conditional({TrueCondition.class})
+    @TrueConditional
     static class Config1 {
 
         @Bean
@@ -56,12 +73,11 @@ public class ConditionalTest {
     }
 
     @Configuration
-    @Conditional({FlaseCondition.class})
+    @FalseConditional
     static class Config2 {
     }
 
     static class MyBean {
     }
-
 
 }
