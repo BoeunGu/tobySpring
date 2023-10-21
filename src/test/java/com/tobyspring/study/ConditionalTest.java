@@ -10,6 +10,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.Map;
 
 public class ConditionalTest {
 
@@ -38,32 +39,23 @@ public class ConditionalTest {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
-    @Conditional(FlaseCondition.class)
-    @interface FalseConditional {
+    @Conditional(BooleanCondition.class)
+    @interface BooleanConditional {
+        boolean value(); // 싱글 element만 사용할때 기본 이름이 'value'이다.
     }
 
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.TYPE)
-    @Conditional(TrueCondition.class)
-    @interface TrueConditional {
-    }
 
-    static class TrueCondition implements Condition {
+    static class BooleanCondition implements Condition {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            return true;
+            Map<String, Object> annotationAttributes = metadata.getAnnotationAttributes(BooleanConditional.class.getName());
+            return (Boolean) annotationAttributes.get("value");
         }
     }
 
-    static class FlaseCondition implements Condition {
-        @Override
-        public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            return false;
-        }
-    }
 
     @Configuration
-    @TrueConditional
+    @BooleanConditional(true)
     static class Config1 {
 
         @Bean
@@ -73,7 +65,7 @@ public class ConditionalTest {
     }
 
     @Configuration
-    @FalseConditional
+    @BooleanConditional(false)
     static class Config2 {
     }
 
